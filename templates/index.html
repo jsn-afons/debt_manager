@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title d-flex align-items-center gap-2">
+            <span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+            DebtTracker
+        </h5>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="d-flex flex-column h-100 p-3">
+            <div class="d-flex flex-column gap-2 mt-2">
+                <a class="nav-link active" href="#">
+                    <span class="material-symbols-outlined fill-1">dashboard</span>
+                    Dashboard
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">group</span>
+                    Debtors
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">history</span>
+                    History
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<aside class="sidebar d-none d-lg-flex">
+    <div class="d-flex flex-column h-100 p-4">
+        <div class="d-flex align-items-center gap-3 px-2 mb-4">
+            <div class="icon-box bg-soft-blue text-primary">
+                <span class="material-symbols-outlined">account_balance_wallet</span>
+            </div>
+            <h4 class="mb-0 fw-bold fs-5">DebtTracker</h4>
+        </div>
+        <nav class="nav flex-column gap-2 mb-auto">
+            <a class="nav-link active" href="#">
+                <span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+            <a class="nav-link" href="#">
+                <span class="material-symbols-outlined">group</span>
+                Debtors
+            </a>
+            <a class="nav-link" href="#">
+                <span class="material-symbols-outlined">history</span>
+                History
+            </a>
+            <a class="nav-link" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+        </nav>
+        <div class="d-flex align-items-center gap-3 p-3 border rounded-3 mt-4">
+            <div class="rounded-circle flex-shrink-0"
+                style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsdXTTUTghK7YPRlNroEGhJVwBM34oNWAJ6B6ndRDc29QbE9ibMj8LYaxpkeXW0eKV0UHiWpfHNnji0GaiWutsrLXO3-elFxn70ShXd9BrFVHVl83AyAZDr8RFnm3xt0n9XNM47Z-oz7UT66P-WBDIzjcnJ0wWQX6I2LLqVGFnSiVnzedgtZpCxHSFw8WxYE321Zwul0M_Bax58hr2YouMtcZxAbsBAMC0t-4MiwHAIJ-6F_jW2KUF7uaQsbo2oCUeLQA7nGCwDsU'); background-size: cover; background-position: center;">
+            </div>
+            <div class="overflow-hidden">
+                <p class="mb-0 text-dark fw-bold text-truncate" style="font-size: 0.9rem;">Alex Morgan</p>
+                <p class="mb-0 text-muted text-truncate" style="font-size: 0.75rem;">alex@example.com</p>
+            </div>
+        </div>
+    </div>
+</aside>
+<main class="main-content">
+    <div class="container-fluid p-0">
+        <div
+            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">Welcome back, Alex</h2>
+                <p class="text-secondary mb-0">Here's what's happening with your debts today.</p>
+            </div>
+            <button class="btn btn-primary d-flex align-items-center gap-2 shadow-sm px-4 py-2">
+                <span class="material-symbols-outlined fs-5">add</span>
+                <span class="fw-bold" style="font-size: 0.875rem;">Add New Debt</span>
+            </button>
+        </div>
+        <div class="row g-4 mb-5">
+            <div class="col-12 col-md-4">
+                <div class="card card-stats bg-white h-100 p-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="icon-box bg-soft-blue">
+                                <span class="material-symbols-outlined">account_balance_wallet</span>
+                            </div>
+                            <span class="badge bg-soft-red text-danger rounded-pill">+2.5%</span>
+                        </div>
+                        <p class="text-secondary small fw-medium mb-1">Total Owed</p>
+                        <h3 class="fw-bold mb-0">$12,450</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card card-stats bg-white h-100 p-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="icon-box bg-soft-green">
+                                <span class="material-symbols-outlined">check_circle</span>
+                            </div>
+                        </div>
+                        <p class="text-secondary small fw-medium mb-1">Total Recovered</p>
+                        <h3 class="fw-bold mb-0">$4,200</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card card-stats bg-white h-100 p-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div class="icon-box bg-soft-purple">
+                                <span class="material-symbols-outlined">group</span>
+                            </div>
+                            <span class="badge bg-light text-secondary rounded-pill">Active</span>
+                        </div>
+                        <p class="text-secondary small fw-medium mb-1">Active Debtors</p>
+                        <h3 class="fw-bold mb-0">8</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4">
+            <h4 class="fw-bold mb-3">Current Debts</h4>
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table table-custom table-hover mb-0 w-100">
+                        <thead>
+                            <tr>
+                                <th class="ps-4">Name</th>
+                                <th>Amount</th>
+                                <th>Date Borrowed</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th class="text-end pe-4">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-circle bg-soft-blue text-primary">JD</div>
+                                        <span class="fw-medium">John Doe</span>
+                                    </div>
+                                </td>
+                                <td class="fw-semibold">$1,200</td>
+                                <td class="text-secondary">Oct 24, 2023</td>
+                                <td class="text-secondary">12 days ago</td>
+                                <td>
+                                    <span class="status-badge bg-soft-blue">Active</span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <button class="action-btn" title="Edit">
+                                        <span class="material-symbols-outlined fs-5">edit</span>
+                                    </button>
+                                    <button class="action-btn text-success" title="Mark as Paid">
+                                        <span class="material-symbols-outlined fs-5">check</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-circle bg-soft-purple text-purple">SS</div>
+                                        <span class="fw-medium">Sarah Smith</span>
+                                    </div>
+                                </td>
+                                <td class="fw-semibold">$450</td>
+                                <td class="text-secondary">Sep 10, 2023</td>
+                                <td class="text-secondary">45 days ago</td>
+                                <td>
+                                    <span class="status-badge bg-soft-red">Overdue</span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <button class="action-btn" title="Edit">
+                                        <span class="material-symbols-outlined fs-5">edit</span>
+                                    </button>
+                                    <button class="action-btn text-success" title="Mark as Paid">
+                                        <span class="material-symbols-outlined fs-5">check</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-circle bg-soft-yellow text-warning">MB</div>
+                                        <span class="fw-medium">Michael Brown</span>
+                                    </div>
+                                </td>
+                                <td class="fw-semibold">$3,000</td>
+                                <td class="text-secondary">Nov 01, 2023</td>
+                                <td class="text-secondary">5 days ago</td>
+                                <td>
+                                    <span class="status-badge bg-soft-blue">Active</span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <button class="action-btn" title="Edit">
+                                        <span class="material-symbols-outlined fs-5">edit</span>
+                                    </button>
+                                    <button class="action-btn text-success" title="Mark as Paid">
+                                        <span class="material-symbols-outlined fs-5">check</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-circle bg-soft-green text-success">ED</div>
+                                        <span class="fw-medium">Emily Davis</span>
+                                    </div>
+                                </td>
+                                <td class="fw-semibold">$150</td>
+                                <td class="text-secondary">Aug 15, 2023</td>
+                                <td class="text-secondary">-</td>
+                                <td>
+                                    <span class="status-badge bg-soft-green">Paid</span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <button class="action-btn text-secondary" disabled="">
+                                        <span class="material-symbols-outlined fs-5">lock</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="avatar-circle bg-primary bg-opacity-10 text-primary">CW</div>
+                                        <span class="fw-medium">Chris Wilson</span>
+                                    </div>
+                                </td>
+                                <td class="fw-semibold">$800</td>
+                                <td class="text-secondary">Oct 05, 2023</td>
+                                <td class="text-secondary">30 days ago</td>
+                                <td>
+                                    <span class="status-badge bg-soft-red">Overdue</span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <button class="action-btn" title="Edit">
+                                        <span class="material-symbols-outlined fs-5">edit</span>
+                                    </button>
+                                    <button class="action-btn text-success" title="Mark as Paid">
+                                        <span class="material-symbols-outlined fs-5">check</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex align-items-center justify-content-between px-4 py-3 bg-light border-top">
+                    <span class="small text-muted">Showing 1-5 of 8 records</span>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary btn-sm" disabled="" type="button">
+                            <span class="material-symbols-outlined fs-6 align-middle">chevron_left</span>
+                        </button>
+                        <button class="btn btn-outline-secondary btn-sm" type="button">
+                            <span class="material-symbols-outlined fs-6 align-middle">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
