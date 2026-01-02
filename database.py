@@ -38,7 +38,7 @@ class Debtors(db.Model):
     __tablename__ = "debtors"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     debtor_name: Mapped[str] = mapped_column(String(250), nullable=False)
-    date_borrowed: Mapped[date] = mapped_column(Date)
+    date_borrowed: Mapped[date] = mapped_column(Date) #Filled by me automatically 
     amount_borrowed: Mapped[float] = mapped_column(Float)
     promised_payment_date: Mapped[date] = mapped_column(Date, nullable=True, default=datetime.utcnow)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
