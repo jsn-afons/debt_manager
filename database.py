@@ -5,6 +5,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import Date, Float, ForeignKey, Enum
 from datetime import datetime, date
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 
 STATUS_OPTIONS = ("Active", "Paid", "Overdue", "Forgiven")
 
@@ -13,7 +14,7 @@ db = SQLAlchemy()
 class Base(DeclarativeBase):
     pass
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     first_name: Mapped[str] = mapped_column(String(250))
@@ -32,6 +33,12 @@ class User(db.Model):
         return check_password_hash(self._password_hash, password)
 
     debtors = relationship("Debtors", backref="user")
+
+    def add_user(self, new_user: User):
+        db.session.add(new_user)
+        db.session.commit()
+        
+
 
 
 class Debtors(db.Model):
