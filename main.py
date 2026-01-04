@@ -5,6 +5,7 @@ from forms import *
 import os
 from dotenv import load_dotenv
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from datetime import datetime
 
 load_dotenv()
 
@@ -43,9 +44,9 @@ def signup():
     form = SignUpForm()
     if form.validate_on_submit():
         new_user = User(
-            first_name=form.first_name.data,
-            last_name=form.last_name.data,
-            email=form.email.data,
+            first_name=form.first_name.data.title(),
+            last_name=form.last_name.data.title(),
+            email=form.email.data.lower(),
             password=form.password.data
         )
         db.session.add(new_user)
@@ -56,7 +57,27 @@ def signup():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
-    return render_template('index.html')
+    my_id = current_user.id
+    my_debts = db.session.execute(db.select(Debtors).where(Debtors.user_id == my_id)).scalars().all()
+    return render_template('index.html', debts=my_debts)
+
+@app.route('/add_debt', methods=['GET', 'POST'])
+def add_debt():
+    form = AddDebtForm()
+    if form.validate_on_submit():
+        new_debt = Debtors(
+            debtor_name = form.debtor_name.data,
+            amount_borrowed = form.amount_borrowed.data,
+            promised_payment_date = form.promised_payment_date.data,
+            date_borrowed = datetime.now(),
+            status = form.status.data,
+            description = form.description.data,
+            user_id = current_user.id
+        )
+        db.session.add(new_debt)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+    return render_template('add_debt.html', form=form)
 
 if __name__ == '__main__':
     with app.app_context():

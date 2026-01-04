@@ -33,10 +33,6 @@ class User(db.Model, UserMixin):
         return check_password_hash(self._password_hash, password)
 
     debtors = relationship("Debtors", backref="user")
-
-    def add_user(self, new_user: User):
-        db.session.add(new_user)
-        db.session.commit()
         
 
 
@@ -49,5 +45,6 @@ class Debtors(db.Model):
     amount_borrowed: Mapped[float] = mapped_column(Float)
     promised_payment_date: Mapped[date] = mapped_column(Date, nullable=True, default=datetime.utcnow)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
-    status: Mapped[str] = mapped_column(Enum(STATUS_OPTIONS, name="status_types"), nullable=False)
+    status: Mapped[str] = mapped_column(Enum(*STATUS_OPTIONS, name="status_types"), nullable=False)
+    description: Mapped[str] = mapped_column(String(500), nullable=True)
 
