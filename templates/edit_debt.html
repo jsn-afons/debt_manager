@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Edit Debt Form</title>
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#195de6",
+                        "primary-dark": "#144abc",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2233",
+                        "border-light": "#d0d7e7",
+                        "border-dark": "#2d3748",
+                        "text-light": "#0e121b",
+                        "text-dark": "#f0f4f8",
+                        "text-muted-light": "#4e6797",
+                        "text-muted-dark": "#94a3b8",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark min-h-screen flex items-center justify-center p-4">
+    <!-- Modal Card Container -->
+    <div
+        class="relative w-full max-w-2xl bg-surface-light dark:bg-surface-dark rounded-xl shadow-lg border border-border-light dark:border-border-dark overflow-hidden">
+        <!-- Header Section -->
+        <div
+            class="flex items-center justify-between px-8 py-6 border-b border-border-light dark:border-border-dark bg-white/50 dark:bg-black/20">
+            <div class="flex flex-col gap-1">
+                <h1 class="text-2xl font-bold tracking-tight text-text-light dark:text-text-dark">Edit Debt</h1>
+                <p class="text-sm text-text-muted-light dark:text-text-muted-dark">Edit the details of the debt record
+                    below.</p>
+            </div>
+            <button aria-label="Close"
+                class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 text-text-muted-light dark:text-text-muted-dark transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <!-- Form Content -->
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="p-8 space-y-8">
+                <!-- Row 1: Debtor & Amount -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Debtor Name -->
+                    <div class="flex flex-col gap-2 group">
+                        <label
+                            class="text-sm font-semibold text-text-light dark:text-text-dark flex items-center gap-1">
+                            Who owes you? <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative flex items-center">
+                            <span
+                                class="absolute left-3 text-text-muted-light dark:text-text-muted-dark material-symbols-outlined text-[20px]">person</span>
+                            {{ form.debtor_name(class="w-full h-12 pl-10 pr-4 bg-background-light
+                            dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg
+                            focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all
+                            text-text-light dark:text-text-dark placeholder:text-text-muted-light
+                            dark:placeholder:text-text-muted-dark", placeholder="e.g. John Doe") }}
+                        </div>
+                        {% for error in form.debtor_name.errors %}
+                        <span class="text-xs text-red-500 mt-1">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <!-- Amount -->
+                    <div class="flex flex-col gap-2 group">
+                        <label
+                            class="text-sm font-semibold text-text-light dark:text-text-dark flex items-center gap-1">
+                            How much? <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative flex items-center">
+                            <span
+                                class="absolute left-3 text-text-muted-light dark:text-text-muted-dark material-symbols-outlined text-[20px]">attach_money</span>
+                            {{ form.amount_borrowed(class="w-full h-12 pl-10 pr-4 bg-background-light
+                            dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg
+                            focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all
+                            text-text-light dark:text-text-dark placeholder:text-text-muted-light
+                            dark:placeholder:text-text-muted-dark", placeholder="0.00", type="number", step="0.01") }}
+                        </div>
+                        {% for error in form.amount_borrowed.errors %}
+                        <span class="text-xs text-red-500 mt-1">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Row 2: Due Date & Status -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Due Date -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-text-light dark:text-text-dark">When is it due?</label>
+                        <div class="relative flex items-center">
+                            <span
+                                class="absolute left-3 text-text-muted-light dark:text-text-muted-dark material-symbols-outlined text-[20px]">calendar_today</span>
+                            {{ form.promised_payment_date(class="w-full h-12 pl-10 pr-4 bg-background-light
+                            dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg
+                            focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all
+                            text-text-light dark:text-text-dark text-sm placeholder:text-text-muted-light
+                            dark:placeholder:text-text-muted-dark", type="date") }}
+                        </div>
+                        {% for error in form.promised_payment_date.errors %}
+                        <span class="text-xs text-red-500 mt-1">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <!-- Status -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-text-light dark:text-text-dark">Current Status</label>
+                        <div class="relative">
+                            {{ form.status(class="w-full h-12 pl-4 pr-10 bg-background-light dark:bg-background-dark
+                            border border-border-light dark:border-border-dark rounded-lg focus:outline-none
+                            focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-text-light
+                            dark:text-text-dark appearance-none") }}
+                            <span
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark pointer-events-none material-symbols-outlined">expand_more</span>
+                        </div>
+                        {% for error in form.status.errors %}
+                        <span class="text-xs text-red-500 mt-1">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Row 3: Description -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm font-semibold text-text-light dark:text-text-dark">Additional Notes</label>
+                    <div class="relative">
+                        <span
+                            class="absolute left-3 top-3 text-text-muted-light dark:text-text-muted-dark material-symbols-outlined text-[20px]">description</span>
+                        {{ form.description(class="w-full min-h-[120px] pl-10 pr-4 py-3 bg-background-light
+                        dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg
+                        focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all
+                        text-text-light dark:text-text-dark placeholder:text-text-muted-light
+                        dark:placeholder:text-text-muted-dark resize-none", placeholder="Add any relevant details,
+                        promises, or context about this debt...") }}
+                    </div>
+                    {% for error in form.description.errors %}
+                    <span class="text-xs text-red-500 mt-1">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Footer / Action Bar -->
+            <div
+                class="px-8 py-5 border-t border-border-light dark:border-border-dark bg-background-light/50 dark:bg-background-dark/50 flex justify-end gap-3">
+                <a href="{{ url_for('dashboard') }}"
+                    class="px-6 h-11 rounded-lg border border-border-light dark:border-border-dark text-text-light dark:text-text-dark font-medium hover:bg-background-light dark:hover:bg-background-dark/80 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700 flex items-center justify-center">
+                    Cancel
+                </a>
+                <button type="submit"
+                    class="px-6 h-11 rounded-lg bg-primary text-white font-medium hover:bg-primary-dark shadow-sm shadow-blue-500/30 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]">save</span>
+                    Save Debt
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

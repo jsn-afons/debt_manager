@@ -18,3 +18,10 @@ class AddDebtForm(FlaskForm):
     promised_payment_date = DateField("Promised Payment Date", validators=[Optional()])
     status = SelectField("Status", choices=[("Active", "Active"), ("Paid", "Paid"), ("Overdue", "Overdue"), ("Forgiven", "Forgiven")])
     description = TextAreaField("Description", validators=[Optional()])
+
+class EditDebtForm(FlaskForm):
+    debtor_name = StringField("Debtor Name", validators=[Optional()])
+    amount_borrowed = FloatField("Amount Borrowed", validators=[Optional()])
+    promised_payment_date = DateField("Promised Payment Date", validators=[Optional()])
+    status = SelectField("Status", choices=[("Active", "Active"), ("Paid", "Paid"), ("Overdue", "Overdue"), ("Forgiven", "Forgiven")])
+    description = TextAreaField("Description", validators=[Optional()])

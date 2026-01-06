@@ -80,8 +80,9 @@
                 style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsdXTTUTghK7YPRlNroEGhJVwBM34oNWAJ6B6ndRDc29QbE9ibMj8LYaxpkeXW0eKV0UHiWpfHNnji0GaiWutsrLXO3-elFxn70ShXd9BrFVHVl83AyAZDr8RFnm3xt0n9XNM47Z-oz7UT66P-WBDIzjcnJ0wWQX6I2LLqVGFnSiVnzedgtZpCxHSFw8WxYE321Zwul0M_Bax58hr2YouMtcZxAbsBAMC0t-4MiwHAIJ-6F_jW2KUF7uaQsbo2oCUeLQA7nGCwDsU'); background-size: cover; background-position: center;">
             </div>
             <div class="overflow-hidden">
-                <p class="mb-0 text-dark fw-bold text-truncate" style="font-size: 0.9rem;">{{
-                    current_user.first_name.title() + ' ' + current_user.last_name.title() }}</p>
+                <p class="mb-0 text-dark fw-bold text-truncate" style="font-size: 0.9rem;">
+                    {{ current_user.first_name.title() + ' ' + current_user.last_name.title() }}
+                </p>
                 <p class="mb-0 text-muted text-truncate" style="font-size: 0.75rem;">{{ current_user.email }}</p>
             </div>
         </div>
@@ -173,14 +174,15 @@
                             </td>
                             <td class="fw-semibold">{{ debtors.amount_borrowed }}</td>
                             <td class="text-secondary">{{ debtors.date_borrowed }}</td>
-                            <td class="text-secondary">12 days ago</td>
+                            <td class="text-secondary">{{ debtors.days_ago }} days ago
+                            </td>
                             <td>
                                 <span class="status-badge bg-soft-blue">{{ debtors.status }}</span>
                             </td>
                             <td class="text-end pe-4">
-                                <button class="action-btn" title="Edit">
+                                <a href="{{url_for('edit_debt', id=debtors.id)}}" class="action-btn" title="Edit">
                                     <span class="material-symbols-outlined fs-5">edit</span>
-                                </button>
+                                </a>
                                 <button class="action-btn text-success" title="Mark as Paid">
                                     <span class="material-symbols-outlined fs-5">check</span>
                                 </button>

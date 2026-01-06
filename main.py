@@ -79,6 +79,28 @@ def add_debt():
         return redirect(url_for('dashboard'))
     return render_template('add_debt.html', form=form)
 
+@app.route('/edit_debt/<int:id>', methods=['GET', 'POST'])
+def edit_debt(id):
+    debt_to_edit = db.session.execute(db.select(Debtors).where(Debtors.id == id)).scalar_one_or_none()
+    form = EditDebtForm()
+    if form.validate_on_submit():
+        debt_to_edit.debtor_name = form.debtor_name.data
+        debt_to_edit.amount_borrowed = form.amount_borrowed.data
+        debt_to_edit.promised_payment_date = form.promised_payment_date.data
+        debt_to_edit.status = form.status.data
+        debt_to_edit.description = form.description.data
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+
+    if request.method == 'GET':
+        form.debtor_name.data = debt_to_edit.debtor_name
+        form.amount_borrowed.data = debt_to_edit.amount_borrowed
+        form.promised_payment_date.data = debt_to_edit.promised_payment_date
+        form.status.data = debt_to_edit.status
+        form.description.data = debt_to_edit.description
+        
+    return render_template('edit_debt.html', form=form)
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

@@ -48,3 +48,7 @@ class Debtors(db.Model):
     status: Mapped[str] = mapped_column(Enum(*STATUS_OPTIONS, name="status_types"), nullable=False)
     description: Mapped[str] = mapped_column(String(500), nullable=True)
 
+    @property
+    def days_ago(self):
+        delta = datetime.now().date() - self.date_borrowed
+        return delta.days
