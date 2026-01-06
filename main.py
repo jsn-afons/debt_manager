@@ -59,7 +59,10 @@ def signup():
 def dashboard():
     my_id = current_user.id
     my_debts = db.session.execute(db.select(Debtors).where(Debtors.user_id == my_id)).scalars().all()
-    return render_template('index.html', debts=my_debts)
+    debts_count = len(my_debts)
+    total_owed = sum(db.session.execute(db.select(Debtors.amount_borrowed).where(Debtors.user_id == my_id)).scalars())
+    total_recovered = sum(db.session.execute(db.select(Debtors.amount_borrowed).where(Debtors.status == 'Paid')).scalars())
+    return render_template('index.html', debts=my_debts, debts_count=debts_count, total_owed=total_owed, total_recovered=total_recovered)
 
 @app.route('/add_debt', methods=['GET', 'POST'])
 def add_debt():
@@ -98,7 +101,7 @@ def edit_debt(id):
         form.promised_payment_date.data = debt_to_edit.promised_payment_date
         form.status.data = debt_to_edit.status
         form.description.data = debt_to_edit.description
-        
+
     return render_template('edit_debt.html', form=form)
 
 if __name__ == '__main__':

@@ -115,7 +115,9 @@
                         <span class="badge bg-soft-red text-danger rounded-pill">+2.5%</span>
                     </div>
                     <p class="text-secondary small fw-medium mb-1">Total Owed</p>
-                    <h3 class="fw-bold mb-0">$12,450</h3>
+                    <h3 class="fw-bold mb-0">
+                        ${{ total_owed }}
+                    </h3>
                 </div>
             </div>
         </div>
@@ -128,7 +130,7 @@
                         </div>
                     </div>
                     <p class="text-secondary small fw-medium mb-1">Total Recovered</p>
-                    <h3 class="fw-bold mb-0">$4,200</h3>
+                    <h3 class="fw-bold mb-0">{{ total_recovered }}</h3>
                 </div>
             </div>
         </div>
@@ -142,7 +144,7 @@
                         <span class="badge bg-light text-secondary rounded-pill">Active</span>
                     </div>
                     <p class="text-secondary small fw-medium mb-1">Active Debtors</p>
-                    <h3 class="fw-bold mb-0">8</h3>
+                    <h3 class="fw-bold mb-0">{{ debts_count }}</h3>
                 </div>
             </div>
         </div>
@@ -164,6 +166,7 @@
                     </thead>
 
                     {% for debtors in debts %}
+
                     <tbody>
                         <tr>
                             <td class="ps-4">
@@ -177,23 +180,32 @@
                             <td class="text-secondary">{{ debtors.days_ago }} days ago
                             </td>
                             <td>
+                                {% if debtors.status == "Paid" %}
+                                <span class="status-badge bg-soft-orange">{{ debtors.status }}</span>
+                                {% else %}
                                 <span class="status-badge bg-soft-blue">{{ debtors.status }}</span>
+                                {% endif %}
                             </td>
                             <td class="text-end pe-4">
                                 <a href="{{url_for('edit_debt', id=debtors.id)}}" class="action-btn" title="Edit">
                                     <span class="material-symbols-outlined fs-5">edit</span>
                                 </a>
+                                {% if debtors.status == "Paid" %}
+                                <button class="action-btn text-secondary" disabled="">
+                                    <span class="material-symbols-outlined fs-5">lock</span>
+                                </button>
+                                {% else %}
                                 <button class="action-btn text-success" title="Mark as Paid">
                                     <span class="material-symbols-outlined fs-5">check</span>
                                 </button>
+                                {% endif %}
                             </td>
                         </tr>
+
                         {% endfor %}
 
 
-                        <!-- <button class="action-btn text-secondary" disabled="">
-                                    <span class="material-symbols-outlined fs-5">lock</span>
-                                </button> -->
+
 
 
                     </tbody>
