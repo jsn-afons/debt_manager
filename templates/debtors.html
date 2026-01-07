@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block body_class %}layout-with-sidebar{% endblock %}
+{% block navbar %}
+<!-- Nav Bar -->
+<nav class="navbar navbar-light bg-white border-bottom d-lg-none sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+            <span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+            <span class="fw-bold">DebtTracker</span>
+        </a>
+        <button class="btn btn-link text-secondary p-0" data-bs-target="#sidebarOffcanvas" data-bs-toggle="offcanvas"
+            type="button">
+            <span class="material-symbols-outlined fs-2">menu</span>
+        </button>
+    </div>
+</nav>
+{% endblock %}
+
+{% block sidebar %}
+<div class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title d-flex align-items-center gap-2">
+            <span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+            DebtTracker
+        </h5>
+        <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+        <div class="d-flex flex-column h-100 p-3">
+            <div class="d-flex flex-column gap-2 mt-2">
+                <a class="nav-link" href="{{ url_for('dashboard') }}">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+                <a class="nav-link active" href="{{ url_for('debtors') }}">
+                    <span class="material-symbols-outlined fill-1">group</span>
+                    Debtors
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">history</span>
+                    History
+                </a>
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<aside class="sidebar d-none d-lg-flex">
+    <div class="d-flex flex-column h-100 p-4">
+        <div class="d-flex align-items-center gap-3 px-2 mb-4">
+            <div class="icon-box bg-soft-blue text-primary">
+                <span class="material-symbols-outlined">account_balance_wallet</span>
+            </div>
+            <h4 class="mb-0 fw-bold fs-5">DebtTracker</h4>
+        </div>
+        <nav class="nav flex-column gap-2 mb-auto">
+            <a class="nav-link" href="{{ url_for('dashboard') }}">
+                <span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+            <a class="nav-link active" href="{{ url_for('debtors') }}">
+                <span class="material-symbols-outlined fill-1">group</span>
+                Debtors
+            </a>
+            <a class="nav-link" href="#">
+                <span class="material-symbols-outlined">history</span>
+                History
+            </a>
+            <a class="nav-link" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+        </nav>
+        <div class="d-flex align-items-center gap-3 p-3 border rounded-3 mt-4">
+            <div class="rounded-circle flex-shrink-0"
+                style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsdXTTUTghK7YPRlNroEGhJVwBM34oNWAJ6B6ndRDc29QbE9ibMj8LYaxpkeXW0eKV0UHiWpfHNnji0GaiWutsrLXO3-elFxn70ShXd9BrFVHVl83AyAZDr8RFnm3xt0n9XNM47Z-oz7UT66P-WBDIzjcnJ0wWQX6I2LLqVGFnSiVnzedgtZpCxHSFw8WxYE321Zwul0M_Bax58hr2YouMtcZxAbsBAMC0t-4MiwHAIJ-6F_jW2KUF7uaQsbo2oCUeLQA7nGCwDsU'); background-size: cover; background-position: center;">
+            </div>
+            <div class="overflow-hidden">
+                <p class="mb-0 text-dark fw-bold text-truncate" style="font-size: 0.9rem;">
+                    {{ current_user.first_name.title() + ' ' + current_user.last_name.title() }}
+                </p>
+                <p class="mb-0 text-muted text-truncate" style="font-size: 0.75rem;">{{ current_user.email }}</p>
+            </div>
+        </div>
+    </div>
+</aside>
+{% endblock %}
+
+{% block content %}
+<h1>HELLO WORLD</h1>
+{% endblock %}

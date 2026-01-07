@@ -1,16 +1,35 @@
 {% extends "base.html" %}
+{% block sidebar %}{% endblock %}
+
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h1>Sign Up</h1>
-            <form method="POST">
-                {{ form.hidden_tag() }} <p>{{ form.first_name.label }} <br> {{ form.first_name(size=30) }}</p>
-                <p>{{ form.last_name.label }} <br> {{ form.last_name(size=30) }}</p>
-                <p>{{ form.email.label }} <br> {{ form.email(size=30) }}</p>
-                <p>{{ form.password.label }} <br> {{ form.password(size=30) }}</p>
-                <button type="submit">Sign Up</button>
-            </form>
+            <div class="card">
+                <div class="card-body">
+                    <h2>Sign Up</h2>
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.first_name.label }}
+                            {{ form.first_name(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.last_name.label }}
+                            {{ form.last_name(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control") }}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password.label }}
+                            {{ form.password(class="form-control") }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
