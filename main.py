@@ -61,7 +61,7 @@ def dashboard():
     my_debts = db.session.execute(db.select(Debtors).where(Debtors.user_id == my_id)).scalars().all()
     pending_debts = [debt for debt in my_debts if debt.status != 'Paid']
     amount_borrowed_sum = sum(db.session.execute(db.select(Debtors.amount_borrowed).where(Debtors.user_id == my_id)).scalars())
-    raw_total_recovered = sum(db.session.execute(db.select(Debtors.amount_borrowed).where(Debtors.status == 'Paid')).scalars())
+    raw_total_recovered = sum(db.session.execute(db.select(Debtors.amount_paid)).scalars())
     total_recovered = f"{raw_total_recovered:.2f}"
     raw_total_owed = amount_borrowed_sum - raw_total_recovered
     total_owed = f"{raw_total_owed:.2f}"
@@ -91,7 +91,9 @@ def edit_debt(id):
     form = EditDebtForm()
     if form.validate_on_submit():
         debt_to_edit.debtor_name = form.debtor_name.data
-        debt_to_edit.amount_borrowed = form.amount_borrowed.data
+        debt_to_edit.amount_borrowed = debt_to_edit.amount_borrowed - form.amount_paid.data
+        debt_to_edit.amount_paid = debt_to_edit.amount_paid + form.amount_paid.data
+
         debt_to_edit.promised_payment_date = form.promised_payment_date.data
         debt_to_edit.status = form.status.data
         debt_to_edit.description = form.description.data

@@ -146,6 +146,23 @@
                         <span class="text-xs text-red-500 mt-1">{{ error }}</span>
                         {% endfor %}
                     </div>
+                    <!-- Amount Paid -->
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-text-light dark:text-text-dark">Part Payment? How much
+                            was paid?</label>
+                        <div class="relative">
+                            {{ form.amount_paid(class="w-full h-12 pl-4 pr-10 bg-background-light
+                            dark:bg-background-dark
+                            border border-border-light dark:border-border-dark rounded-lg focus:outline-none
+                            focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-text-light
+                            dark:text-text-dark appearance-none") }}
+                            <span
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark pointer-events-none material-symbols-outlined">expand_more</span>
+                        </div>
+                        {% for error in form.amount_paid.errors %}
+                        <span class="text-xs text-red-500 mt-1">{{ error }}</span>
+                        {% endfor %}
+                    </div>
                 </div>
                 <!-- Row 3: Description -->
                 <div class="flex flex-col gap-2">

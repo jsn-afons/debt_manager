@@ -47,6 +47,7 @@ class Debtors(db.Model):
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
     status: Mapped[str] = mapped_column(Enum(*STATUS_OPTIONS, name="status_types"), nullable=False)
     description: Mapped[str] = mapped_column(String(500), nullable=True)
+    amount_paid: Mapped[float] = mapped_column(Float, nullable=True, default=0.0)
 
     @property
     def days_ago(self):
