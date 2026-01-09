@@ -33,6 +33,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self._password_hash, password)
 
     debtors = relationship("Debtors", backref="user")
+    history_logs = relationship("HistoryLog", backref="user")
         
 
 
@@ -53,3 +54,16 @@ class Debtors(db.Model):
     def days_ago(self):
         delta = datetime.now().date() - self.date_borrowed
         return delta.days
+
+    @property
+    def balance(self):
+        return self.amount_borrowed - self.amount_paid
+
+class HistoryLog(db.Model):
+    __tablename__ = "history_log"
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
+    debt_id: Mapped[int] = mapped_column(Integer, ForeignKey("debtors.id"), nullable=False)
+    action: Mapped[str] = mapped_column(String(250), nullable=False)
+    date: Mapped[date] = mapped_column(Date, nullable=False)
+     

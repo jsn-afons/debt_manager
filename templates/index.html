@@ -104,10 +104,15 @@
                                     <span class="fw-medium">{{ debtors.debtor_name }}</span>
                                 </div>
                             </td>
-                            <td class="fw-semibold">{{ debtors.amount_borrowed }}</td>
+                            <td class="fw-semibold">${{ debtors.balance }}</td>
                             <td class="text-secondary">{{ debtors.date_borrowed }}</td>
+                            {% if debtors.days_ago > 1 %}
                             <td class="text-secondary">{{ debtors.days_ago }} days ago
                             </td>
+                            {% else %}
+                            <td class="text-secondary">{{ debtors.days_ago }} day ago
+                            </td>
+                            {% endif %}
                             <td>
                                 {% if debtors.status == "Paid" %}
                                 <span class="status-badge bg-soft-orange">{{ debtors.status }}</span>
