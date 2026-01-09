@@ -64,6 +64,6 @@ class HistoryLog(db.Model):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
     debt_id: Mapped[int] = mapped_column(Integer, ForeignKey("debtors.id"), nullable=False)
-    action: Mapped[str] = mapped_column(String(250), nullable=False)
+    action: Mapped[str] = mapped_column(String(250), nullable=True)
     date: Mapped[date] = mapped_column(Date, nullable=False)
      
