@@ -144,7 +144,7 @@ def edit_debt(id):
 @login_required
 def debtors():
     my_id = current_user.id
-    debts = db.session.execute(db.select(Debtors).where(Debtors.user_id == my_id)).scalars().all()
+    debts = db.session.execute(db.select(Debtors).where(Debtors.user_id == my_id, Debtors.status != 'Paid', Debtors.status != 'Forgiven')).scalars().all()
     return render_template('debtors.html', debts=debts)
 
 @app.route('/history', methods=['GET', 'POST'])
