@@ -20,10 +20,12 @@ login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(user_id):
+    # Load user by ID for Flask-Login
     return User.query.get(int(user_id))
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    # Handle user login
     form = LoginForm()
     if request.method == 'POST':
         if form.validate_on_submit():
@@ -42,6 +44,7 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    # Handle user registration
     form = SignUpForm()
     if form.validate_on_submit():
         new_user = User(
@@ -58,6 +61,7 @@ def signup():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
+    # Display the main dashboard with debt statistics
     my_id = current_user.id
     my_debts = db.session.execute(db.select(Debtors).where(Debtors.user_id == my_id)).scalars().all()
     pending_debts = [debt for debt in my_debts if debt.status != 'Paid']
@@ -66,11 +70,14 @@ def dashboard():
     total_recovered = f"{raw_total_recovered:.2f}"
     raw_total_owed = amount_borrowed_sum - raw_total_recovered
     total_owed = f"{raw_total_owed:.2f}"
-    return render_template('index.html', debts=my_debts, debts_count=len(pending_debts), total_owed=total_owed, total_recovered=total_recovered)
+    pct_recovered_raw = (raw_total_recovered / amount_borrowed_sum) * 100
+    pct_recovered = f"{pct_recovered_raw:.2f}"
+    return render_template('index.html', debts=my_debts, debts_count=len(pending_debts), total_owed=total_owed, total_recovered=total_recovered, pct_recovered=pct_recovered)
 
 @app.route('/add_debt', methods=['GET', 'POST'])
 @login_required
 def add_debt():
+    # Add a new debt record
     form = AddDebtForm()
     if form.validate_on_submit():
         new_debt = Debtors(
@@ -90,6 +97,7 @@ def add_debt():
 @app.route('/edit_debt/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_debt(id):
+    # Edit an existing debt record
     action = None
     debt_to_edit = db.session.execute(db.select(Debtors).where(Debtors.id == id , Debtors.user_id == current_user.id)).scalar_one_or_none()
     if debt_to_edit is None:
@@ -143,6 +151,7 @@ def edit_debt(id):
 @app.route('/debtors', methods=['GET', 'POST'])
 @login_required
 def debtors():
+    # List all active debtors
     my_id = current_user.id
     debts = db.session.execute(db.select(Debtors).where(Debtors.user_id == my_id, Debtors.status != 'Paid', Debtors.status != 'Forgiven')).scalars().all()
     return render_template('debtors.html', debts=debts)
@@ -150,6 +159,7 @@ def debtors():
 @app.route('/history', methods=['GET', 'POST'])
 @login_required
 def history():
+    # View history of actions
     my_id = current_user.id
     history_logs = db.session.execute(db.select(HistoryLog).where(HistoryLog.user_id == my_id)).scalars().all()
     return render_template('history.html', history_logs=history_logs)
@@ -157,6 +167,7 @@ def history():
 @app.route('/logout')
 @login_required
 def logout():
+    # Log out the current user
     logout_user()
     return redirect(url_for('login'))
 

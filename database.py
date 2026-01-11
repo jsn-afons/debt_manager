@@ -15,6 +15,7 @@ class Base(DeclarativeBase):
     pass
 
 class User(db.Model, UserMixin):
+    # User model to store user account details
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     first_name: Mapped[str] = mapped_column(String(250))
@@ -23,6 +24,7 @@ class User(db.Model, UserMixin):
     _password_hash: Mapped[str] = mapped_column(String(250))
     @property
     def password(self):
+        # Prevent password from being accessed directly
         raise AttributeError("password is not a readable attribute")
 
     @password.setter
@@ -30,6 +32,7 @@ class User(db.Model, UserMixin):
         self._password_hash = generate_password_hash(password)
     
     def verify_password(self, password):
+        # Check if the provided password matches the stored hash
         return check_password_hash(self._password_hash, password)
 
     debtors = relationship("Debtors", backref="user")
@@ -39,6 +42,7 @@ class User(db.Model, UserMixin):
 
 
 class Debtors(db.Model):
+    # Debtors model to store information about debts
     __tablename__ = "debtors"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     debtor_name: Mapped[str] = mapped_column(String(250), nullable=False)
@@ -52,14 +56,17 @@ class Debtors(db.Model):
 
     @property
     def days_ago(self):
+        # Calculate how many days have passed since the debt was borrowed
         delta = datetime.now().date() - self.date_borrowed
         return delta.days
 
     @property
     def balance(self):
+        # Calculate the remaining balance of the debt
         return self.amount_borrowed - self.amount_paid
 
 class HistoryLog(db.Model):
+    # Model to log history of actions performed on debts
     __tablename__ = "history_log"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
