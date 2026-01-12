@@ -204,7 +204,8 @@
     <!-- Sidebar -->
 
     <!-- Sidebar -->
-    {% block sidebar %}
+    {% if current_user.is_authenticated and request.endpoint != 'login' and request.endpoint != 'signup' %}
+
     <div class="offcanvas offcanvas-start" id="sidebarOffcanvas" tabindex="-1">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title d-flex align-items-center gap-2">
@@ -267,15 +268,19 @@
                     style="width: 40px; height: 40px; background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsdXTTUTghK7YPRlNroEGhJVwBM34oNWAJ6B6ndRDc29QbE9ibMj8LYaxpkeXW0eKV0UHiWpfHNnji0GaiWutsrLXO3-elFxn70ShXd9BrFVHVl83AyAZDr8RFnm3xt0n9XNM47Z-oz7UT66P-WBDIzjcnJ0wWQX6I2LLqVGFnSiVnzedgtZpCxHSFw8WxYE321Zwul0M_Bax58hr2YouMtcZxAbsBAMC0t-4MiwHAIJ-6F_jW2KUF7uaQsbo2oCUeLQA7nGCwDsU'); background-size: cover; background-position: center;">
                 </div>
                 <div class="overflow-hidden">
+
                     <p class="mb-0 text-dark fw-bold text-truncate" style="font-size: 0.9rem;">
                         {{ current_user.first_name.title() + ' ' + current_user.last_name.title() }}
                     </p>
                     <p class="mb-0 text-muted text-truncate" style="font-size: 0.75rem;">{{ current_user.email }}</p>
+
                 </div>
             </div>
         </div>
     </aside>
-    {% endblock %}
+    {% endif %}
+
+
 
 
 
@@ -293,7 +298,7 @@
     </main>
 
     <!-- Logout Button -->
-    {% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated and request.endpoint != 'login' and request.endpoint != 'signup' %}
     <a href="{{ url_for('logout') }} a" class="btn btn-primary d-flex align-items-center gap-2 shadow-sm px-4 py-2"
         style="position: fixed; bottom: 2rem; right: 2rem; z-index: 1050;">
         <span class="material-symbols-outlined fs-5">logout</span>

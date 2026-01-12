@@ -1,29 +1,55 @@
 {% extends "base.html" %}
-{% block sidebar %}{% endblock %}
 
 {% block content %}
-<div class="container pt-5 pb-5 mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-6 offset-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <h2>Login</h2>
-                    <form method="POST">
-                        {{ form.hidden_tag() }}
-                        <div class="mb-3">
-                            {{ form.email.label }}
-                            {{ form.email(class="form-control") }}
-                        </div>
-                        <div class="mb-3">
-                            {{ form.password.label }}
-                            {{ form.password(class="form-control") }}
-                        </div>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                    </form>
-                </div>
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 overflow-hidden">
+                <div class="row g-0">
 
+                    <div class="col-md-5 bg-primary text-white p-5 d-flex flex-column justify-content-center">
+                        <h3>Welcome to Debt Collector</h3>
+                        <p class="mt-3">
+                            Easily track who owes you money and manage your personal loans in one place.
+                        </p>
+
+                        <div class="alert alert-light text-dark mt-3 shadow-sm">
+                            <i class="bi bi-shield-lock"></i> <strong>Privacy Tip:</strong><br>
+                            You do not need to use your real email. Feel free to use a fake one like
+                            <code>test@example.com</code> (just make sure it's unique!).
+                        </div>
+                    </div>
+
+                    <div class="col-md-7 p-5 bg-white">
+                        <h2 class="mb-4 text-primary fw-bold">Login</h2>
+
+                        <div class="mb-4">
+                            <span class="text-muted">New here?</span>
+                            <a href="{{ url_for('signup') }}" class="btn btn-outline-primary btn-sm ms-2">Create an
+                                Account</a>
+                        </div>
+
+                        <form method="POST">
+                            {{ form.hidden_tag() }}
+
+                            <div class="mb-3">
+                                {{ form.email.label(class="form-label fw-bold") }}
+                                {{ form.email(class="form-control form-control-lg", placeholder="name@example.com") }}
+                            </div>
+
+                            <div class="mb-4">
+                                {{ form.password.label(class="form-label fw-bold") }}
+                                {{ form.password(class="form-control form-control-lg") }}
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Login to Dashboard</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
             </div>
-            <caption>Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></caption>
         </div>
     </div>
 </div>
